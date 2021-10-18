@@ -25,7 +25,7 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
-      - name: Send sticker
+      - name: Send truth
         run: |-
           pip install -r requirements.txt
           python bot.py
