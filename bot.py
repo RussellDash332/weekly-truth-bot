@@ -21,4 +21,4 @@ with open('truths.txt', 'r') as f:
 
 data = pd.read_csv("truths.csv", encoding="ISO-8859-1", names=["text", "ref"])
 i = random.randint(1, data.shape[0]) - 1
-print(send(f"{data.loc[i, 'text']}\n*  - {data.loc[i, 'ref']}*"))
+print("Send output:",send(f"{data.loc[i, 'text']}\n*  - {data.loc[i, 'ref']}*")["ok"])
