@@ -5,12 +5,13 @@ import pandas as pd
 # from env import TOKEN, CHAT
 
 # Uncomment this instead if you want to run this locally
-TOKEN, CHAT = os.environ['TOKEN'], os.environ['CHAT']
+TOKEN, CHATS = os.environ['TOKEN'], os.environ['CHAT'].split(',')
 
 # https://www.webfx.com/tools/emoji-cheat-sheet/
 def send(bot_message):
-    resp = requests.get(emoji.emojize(f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={CHAT}&parse_mode=Markdown&text={bot_message}&disable_web_page_preview=true", use_aliases = True))
-    return resp.json()
+    for CHAT in CHATS:
+        resp = requests.get(emoji.emojize(f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={CHAT}&parse_mode=Markdown&text={bot_message}&disable_web_page_preview=true", use_aliases = True))
+        print(resp.json())
 
 """
 with open('truths.txt', 'r') as f:
