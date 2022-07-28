@@ -8,10 +8,9 @@ import pandas as pd
 TOKEN, CHATS = os.environ['TOKEN'], os.environ['CHAT'].split(',')
 
 # https://www.webfx.com/tools/emoji-cheat-sheet/
-def send(bot_message):
-    for CHAT in CHATS:
-        resp = requests.get(emoji.emojize(f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={CHAT}&parse_mode=Markdown&text={bot_message}&disable_web_page_preview=true", use_aliases = True))
-        print(resp.json())
+def send(bot_message, chat_id):
+    resp = requests.get(emoji.emojize(f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&parse_mode=Markdown&text={bot_message}&disable_web_page_preview=true", use_aliases = True))
+    return resp.json()
 
 """
 with open('truths.txt', 'r') as f:
@@ -22,4 +21,5 @@ with open('truths.txt', 'r') as f:
 
 data = pd.read_csv("truths.csv", encoding="ISO-8859-1", names=["text", "ref"])
 i = random.randint(1, data.shape[0]) - 1
-print("Send output:",send(f"{data.loc[i, 'text']}\n*  - {data.loc[i, 'ref']}*")["ok"])
+for cid in CHATS:
+    print("Send output:",send(f"{data.loc[i, 'text']}\n*  - {data.loc[i, 'ref']}*", cid)["ok"])
